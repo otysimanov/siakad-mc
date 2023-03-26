@@ -1,0 +1,30 @@
+{% extends 'layout/main.html' %}
+{% block _content %}
+
+  <div class="row">
+    <div class="col-12">
+        <form action="" method="POST">
+          <div class="mb-3">
+            <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+            <input type="text" name="nama_lengkap" class="form-control" id="exampleFormControlInput1" 
+            placeholder="Masukkan Nama Lengkap" required value="{{ data.nama_lengkap }}">
+          </div>
+          <div class="mb-3">
+            <label for="nim" class="form-label">NIM</label>
+            <input type="text" value="{{ data.nim }}" name="nim" class="form-control" id="exampleFormControlInput1" placeholder="Masukkan NIM" required>
+          </div>
+          <div class="mb-3">
+            <label for="nim" class="form-label">Jurusan</label>
+            <select class="form-select" id="jurusan" name="jurusan" required>
+              <option {% if data.jurusan == "" %} selected {% endif %}>Pilih Jurusan</option>
+              <option value="Sistem Informasi"{% if data.jurusan == "Sistem Informasi" %} selected {% endif %}>Sistem Informasi</option>
+              <option value="Teknik Informatika"{% if data.jurusan == "Teknik Informatika" %} selected {% endif %}>Teknik Informatika</option>
+              <option value="Akuntansi"{% if data.jurusan == "Akuntansi" %} selected {% endif %}>Akuntansi</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Edit Mahasiswa</button>
+        </form>
+    </div>
+  </div>
+
+{% endblock %}

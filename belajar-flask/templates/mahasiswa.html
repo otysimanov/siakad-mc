@@ -1,0 +1,112 @@
+{% extends 'layout/main.html' %}
+{% set page_active = 'mahasiswa' %}
+{% set title = 'Mahasiswa' %}
+{% block _content %}
+<div class="row">
+  <div class="col-12">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambah_mahasiswa">
+    Tambah Mahasiswa
+  </button>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="tambah_mahasiswa" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Mahasiswa</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+              <input type="text" name="nama_lengkap" class="form-control" id="exampleFormControlInput1"
+                placeholder="Masukkan Nama Lengkap">
+            </div>
+            <div class="mb-3">
+              <label for="nim" class="form-label">NIM</label>
+              <input type="text" name="nim" class="form-control" id="exampleFormControlInput1"
+                placeholder="Masukkan NIM">
+            </div>
+            <div class="mb-3">
+              <label for="gambar" class="form-label">Foto Profil</label>
+              <input type="file" name="gambar" class="form-control" id="gambar" required>
+            </div>
+            <div class="mb-3">
+              <label for="nim" class="form-label">Jurusan</label>
+              <select class="form-select" id="jurusan" name="jurusan" required>
+                {% for item in jurusan %}
+                <option value="{{ item.jurusan }}" selected>{{ item.jurusan }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Tambah</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <table class="table" id="tabel_mahasiswa">
+    <thead>
+      <th>Gambar</th>
+      <th>Nama</th>
+      <th>Jurusan</th>
+      <th>Status</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      {% for student in students %}
+      <tr>
+        <td>
+          <img src="{{ student.profil or '/img/profil-default.jpg' }}" width="50px" alt="">
+        </td>
+        <td>{{ student.nama_lengkap }}</td>
+        <td>{{ student.jurusan }}</td>
+        <td>
+          {% if student.is_active == true %}
+          <span class="text-success fw-bold">Aktif</span>
+          {% else %}
+          <span class="text-danger fw-bold">Tidak Aktif</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="{{ url_for('mahasiswa.lihat_mahasiswa', uid=student.id) }}" class="btn btn-info">Lihat</a>
+          <a href="{{ url_for('mahasiswa.edit_mhs', uid=student.id) }}" class="btn btn-primary">Edit</a>
+          <button onclick="deleteMahasiswa('{{ student.id }}')" class="btn btn-danger">Hapus</button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block _script %}
+<script>
+  $(document).ready(function () {
+    $('#tabel_mahasiswa').DataTable();
+  });
+
+  function deleteMahasiswa(uid) {
+    var hapus = confirm('Apakah anda yakin hapus mahasiswa ?')
+    if (hapus) {
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('mahasiswa.delete_mahasiswa') }}",
+        data: { "uid": uid },
+        success: function () {
+          location.reload()
+
+        }
+      })
+    }
+  }
+</script>
+{% endblock %}

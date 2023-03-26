@@ -1,0 +1,68 @@
+{% extends 'layout/base.html' %} 
+{% set page_active = 'dosen' %}
+{% set title = 'Dosen' %}
+{% block _content %}
+<div class="container">
+  <h1>Halaman Dosen</h1>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah_dosen">
+  Tambah Dosen
+</button>
+<!-- Modal -->
+<div class="modal fade" id="tambah_dosen" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Dosen</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="" method="post">
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+            <input type="text" name="nama_lengkap" class="form-control" id="exampleFormControlInput1" placeholder="Masukkan Nama Lengkap">
+          </div>
+          <div class="mb-3">
+            <label for="nidn" class="form-label">NIDN</label>
+            <input type="text" name="nidn" class="form-control" id="exampleFormControlInput1" placeholder="Masukkan NIDN">
+          </div>
+          <div class="mb-3">
+            <label for="matakuliah" class="form-label">Dosen Matakuliah</label>
+            <select class="form-select" id="dosen" name="dosen" required>
+              {% for item in jurusan %}
+              <option value="{{ item.jurusan }}">{{ item.jurusan }}</option>
+              {% endfor %}
+            </select>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Tambah</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <th>Nama</th>
+    <th>Matakuliah</th>
+    <th>Keterangan</th>
+  </thead>
+  <tbody>
+    {% for pengajar in dosmat %}
+    <tr>
+      <td>{{ pengajar.nama_lengkap }}</td>
+      <td>{{ pengajar.matakuliah }}</td>
+      <td>
+        {% if pengajar.tersedia == true %}
+        <span class="text-success fw-bold">Kelas Tersedia</span>
+        {% else %}
+        <span class="text-danger fw-bold">Kelas Penuh</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

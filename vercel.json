@@ -1,0 +1,15 @@
+{
+	"builds":[
+		{
+			"src":"belajar-flask/app.py",
+			"use":"@vercel/python"
+		}
+	],
+	"routes":[
+		{
+			"src":"/(.*)",
+			"dest":"belajar-flask/app.py"
+		}
+
+	]
+}

@@ -1,0 +1,28 @@
+{% extends 'layout/main.html' %} 
+
+{% block _content %}
+
+  <div class="row">
+    <div class="col-12">
+        <table class="w-100">
+            <tr>
+                <td class="fw-bold">Nama Lengkap</td>
+                <td>{{ data.nama_lengkap }}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">NIM</td>
+                <td>{{ data.nim }}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Jurusan</td>
+                <td>{{ data.jurusan }}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Status</td>
+                <td>{{ data.is_active }}</td>
+            </tr>
+        </table>
+    </div>
+  </div>
+
+{% endblock %}

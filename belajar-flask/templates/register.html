@@ -1,0 +1,37 @@
+{% extends 'layout/main.html' %}
+{% block _content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+        <form action="" method="POST">
+          <div class="mb-3">
+            <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+            <input type="text" name="nama_lengkap" class="form-control" id="nama_lengkap" 
+            placeholder="Masukkan Nama Lengkap" required>
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" id="username" 
+            placeholder="Masukkan Username" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email" 
+            placeholder="Masukkan Email" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="password" 
+            placeholder="Masukkan Password" required>
+          </div>
+          <div class="mb-3">
+            <label for="password_1" class="form-label">Konfirmasi Password</label>
+            <input type="password" name="password_1" class="form-control" id="password_1" 
+            placeholder="Masukkan Ulang Password" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
